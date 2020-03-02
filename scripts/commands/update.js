@@ -1,29 +1,40 @@
 const {join} = require('path')
 const dl = require('dl-vampire')
 const gh = require('ghreleases')
-const config = require('../config')
 const rc = require('rc')('prebuild-binary')
 const pify = require('promise.ify')
 const pmap = require('promise.map')
+const config = require('../config')
 
 module.exports = {
-  command: 'update [name]',
+  command: 'update',
   alias: ['u'],
   describe: 'update the package',
+  builder(yargs) {
+    return yargs.options({
+      name: {
+        type: 'string',
+        description: '包含的名称',
+      },
+    })
+  },
   async handler(argv) {
     const name = argv.name
-    update(name)
+    const pkgs = config.pkgs.filter(item => {
+      if (!name) return true
+      return item.repo.includes(name) || item.user.includes(name)
+    })
+
+    for (let item of pkgs) {
+      await update(item)
+    }
   },
 }
 
 /* eslint camelcase: off  */
 
-async function update(packageName) {
-  const list = await pify(gh.list, gh)(
-    {user: 'x-oauth', token: rc['github-token']},
-    'magicdawn',
-    packageName
-  )
+async function update({user, repo}) {
+  const list = await pify(gh.list, gh)({user: 'x-oauth', token: rc['github-token']}, user, repo)
 
   let queue = []
   for (let release of list) {
@@ -39,9 +50,9 @@ async function update(packageName) {
   await pmap(
     queue,
     async ({tag, name, url, size}) => {
-      const file = join(__dirname, '../../', 'files', packageName, tag, name)
+      const file = join(__dirname, '../../', 'files', repo, tag, name)
       const {skip} = await dl({file, url, expectSize: size})
-      console.log('[download %s]: %s', skip ? 'skip' : 'success', `${packageName}/${tag}/${name}`)
+      console.log('[download %s]: %s', skip ? 'skip' : 'success', `${repo}/${tag}/${name}`)
     },
     10
   ).catch(e => {

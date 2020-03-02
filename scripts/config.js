@@ -1,3 +1,6 @@
 module.exports = {
-  pkgs: ['simple-mac-clipboard'],
+  pkgs: [
+    //
+    {user: 'magicdawn', repo: 'simple-mac-clipboard'},
+  ],
 }
