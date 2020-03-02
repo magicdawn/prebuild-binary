@@ -10,7 +10,7 @@ use jsdelivr cdn
 {
   "binary": {
     "host": "https://cdn.jsdelivr.net/gh/magicdawn/prebuild-binary@master",
-    "remote_path": "{name}/v{version}"
+    "remote_path": "files/{name}/v{version}"
   }
 }
 ```
