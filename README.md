@@ -1,28 +1,21 @@
 # prebuild-binary
 
-> 
+## config
 
-[![Build Status](https://img.shields.io/travis/magicdawn/prebuild-binary.svg?style=flat-square)](https://travis-ci.org/magicdawn/prebuild-binary)
-[![Coverage Status](https://img.shields.io/codecov/c/github/magicdawn/prebuild-binary.svg?style=flat-square)](https://codecov.io/gh/magicdawn/prebuild-binary)
-[![npm version](https://img.shields.io/npm/v/prebuild-binary.svg?style=flat-square)](https://www.npmjs.com/package/prebuild-binary)
-[![npm downloads](https://img.shields.io/npm/dm/prebuild-binary.svg?style=flat-square)](https://www.npmjs.com/package/prebuild-binary)
-[![npm license](https://img.shields.io/npm/l/prebuild-binary.svg?style=flat-square)](http://magicdawn.mit-license.org)
+### for prebuild-install
 
-## Install
+use jsdelivr cdn
 
-```sh
-$ npm i prebuild-binary --save
+```json
+{
+  "binary": {
+    "host": "https://cdn.jsdelivr.net/gh/magicdawn/prebuild-binary@master",
+    "remote_path": "{name}/v{version}"
+  }
+}
 ```
 
-## API
-
-```js
-const prebuildBinary = require('prebuild-binary');
-```
-
-## Changelog
-
-[CHANGELOG.md](CHANGELOG.md)
+- `binary.package_name` use default `'{name}-v{version}-{runtime}-v{abi}-{platform}{libc}-{arch}.tar.gz'`
 
 ## License
 
