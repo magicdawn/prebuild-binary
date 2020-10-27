@@ -5,6 +5,7 @@ const rc = require('rc')('prebuild-binary')
 const pify = require('promise.ify')
 const pmap = require('promise.map')
 const config = require('../config')
+const semver = require('semver')
 
 module.exports = {
   command: 'update',
@@ -33,8 +34,21 @@ module.exports = {
 
 /* eslint camelcase: off  */
 
-async function update({user, repo}) {
-  const list = await pify(gh.list, gh)({user: 'x-oauth', token: rc['github-token']}, user, repo)
+async function update({user, repo, only}) {
+  let list = await pify(gh.list, gh)({user: 'x-oauth', token: rc['github-token']}, user, repo)
+
+  list = list.filter(r => {
+    if (r.prerelease || r.draft) {
+      return false
+    }
+
+    if (only) {
+      const version = r.tag_name.trimStart('v')
+      return semver.satisfies(version, only)
+    }
+
+    return true
+  })
 
   let queue = []
   for (let release of list) {

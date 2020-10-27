@@ -10,3 +10,4 @@ coverage
 coverage.*
 
 .prebuild-binaryrc
+/files-bak
