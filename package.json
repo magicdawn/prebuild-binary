@@ -20,7 +20,7 @@
     "@magicdawn/prettier-config": "latest",
     "@types/fs-extra": "^8.1.5",
     "@types/yargs": "^15.0.19",
-    "codecov": "^3.8.2",
+    "codecov": "^3.8.3",
     "eslint": "^6.8.0",
     "husky": "latest",
     "lint-staged": "latest",
@@ -48,8 +48,8 @@
     "promise.ify": "^0.4.0",
     "promise.map": "^0.5.0",
     "rc": "^1.2.8",
-    "semver": "^7.6.2",
+    "semver": "^7.7.2",
     "yargs": "^15.4.1"
   },
-  "packageManager": "pnpm@9.4.0+sha512.f549b8a52c9d2b8536762f99c0722205efc5af913e77835dbccc3b0b0b2ca9e7dc8022b78062c17291c48e88749c70ce88eb5a74f1fa8c4bf5e18bb46c8bd83a"
+  "packageManager": "pnpm@10.15.1+sha512.34e538c329b5553014ca8e8f4535997f96180a1d0f614339357449935350d924e22f8614682191264ec33d1462ac21561aff97f6bb18065351c162c7e8f6de67"
 }
